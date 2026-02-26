@@ -10,5 +10,11 @@
     "author": "Niccolò Machiavelli",
     "image": "/images/prince.jpg",
     "description": "A political treatise on how to acquire and maintain political power."
+  },
+  {
+    "title": "The Story of Philosophy",
+    "author": "Will Durant",
+    "image": "/images/philosophy.jpg",
+    "description": "The classic account of the lives and opinions of the great philosophers of the western world—from Plato to Santayana."
   }
 ]
