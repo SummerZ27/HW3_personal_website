@@ -1,0 +1,14 @@
+[
+  {
+    "title": "The Art of Living",
+    "author": "Epictetus",
+    "image": "/images/epictetus.jpeg",
+    "description": "A guide to the Stoic philosophy of Epictetus on how to live a good life."
+  },
+  {
+    "title": "The Prince",
+    "author": "Niccolò Machiavelli",
+    "image": "/images/prince.jpg",
+    "description": "A political treatise on how to acquire and maintain political power."
+  }
+]

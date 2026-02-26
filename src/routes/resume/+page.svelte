@@ -1,3 +1,7 @@
+<script>
+  import { base } from '$app/paths';
+</script>
+
 <svelte:head>
   <title>Resume - Summer Zhou</title>
 </svelte:head>
@@ -13,7 +17,7 @@
 <main class="resume-page">
   <div class="resume-header">
     <h1>Resume</h1>
-    <a href="/files/resume.pdf" target="_blank" rel="noopener noreferrer" class="pdf-button">PDF Version</a>
+    <a href="{base}/files/resume.pdf" target="_blank" rel="noopener noreferrer" class="pdf-button">PDF Version</a>
   </div>
 
   <div class="resume-content">

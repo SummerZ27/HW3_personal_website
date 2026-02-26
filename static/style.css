@@ -284,19 +284,11 @@ section h2 {
     margin: 0 0 0.5rem 0;
 }
 
-.projects .project-content {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
+/* Project card content styling moved to Project.svelte component */
 
-.projects section img {
-    margin: 0;
-    display: block;
-}
-
-.projects section p {
-    margin: 0;
+.projects.highlights {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 
 /* Article Styles */
