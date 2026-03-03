@@ -1,26 +1,29 @@
+<script>
+  function handleSubmit(event) {
+    event.preventDefault();
+    let form = event.target;
+    let data = new FormData(form);
+    let params = [];
+
+    for (let [name, value] of data) {
+      params.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
+    }
+
+    let url = `${form.action}?${params.join('&')}`;
+    location.href = url;
+  }
+</script>
+
 <svelte:head>
   <title>Contact - Summer Zhou</title>
 </svelte:head>
-
-<nav>
-  <a href=".">Home</a>
-  <a href="projects">Projects</a>
-  <a class="current" href="contact">Contact</a>
-  <a href="resume">Resume</a>
-  <a href="https://github.com/SummerZ27" target="_blank" rel="noopener noreferrer">GitHub</a>
-</nav>
 
 <main>
   <h1>Contact</h1>
 
   <p>Feel free to reach out! You can use the form below to send me a message.</p>
 
-  <form action="mailto:summerzhou233@gmail.com" method="GET">
-    <label>
-      <span>Email:</span>
-      <input type="email" name="email" value="your.email@example.com">
-    </label>
-
+  <form action="mailto:summerzhou233@gmail.com" method="GET" on:submit={handleSubmit}>
     <label>
       <span>Subject:</span>
       <input type="text" name="subject" value="Hello from your website">

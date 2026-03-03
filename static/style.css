@@ -67,79 +67,6 @@ body > * {
     z-index: 1;
 }
 
-/* Navigation Styles */
-nav {
-    background: rgba(10, 10, 15, 0.8);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-color);
-    padding: 1.5rem 2rem;
-    margin-bottom: 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-    max-width: 100%;
-}
-
-nav a {
-    display: inline-block;
-    margin-right: 2rem;
-    text-decoration: none;
-    color: var(--text-secondary);
-    font-weight: 500;
-    font-size: 1rem;
-    position: relative;
-    transition: all 0.3s ease;
-    padding: 0.5rem 0;
-}
-
-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    transition: all 0.3s ease;
-}
-
-/* Current page styling */
-nav a.current {
-    color: var(--primary-color);
-    font-weight: 600;
-}
-
-nav a.current::after {
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
-}
-
-/* Hover effects for non-current links */
-nav a:not(.current):hover {
-    color: var(--text-primary);
-    transform: translateY(-2px);
-}
-
-nav a:not(.current):hover::after {
-    width: 100%;
-    height: 3px;
-    box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
-}
-
-/* Hover effect for current page (subtle) */
-nav a.current:hover {
-    color: var(--accent-color);
-    transform: translateY(-1px);
-}
-
-nav a.current:hover::after {
-    height: 4px;
-    box-shadow: 0 0 15px rgba(236, 72, 153, 0.6);
-}
-
 /* Container */
 main {
     max-width: 1200px;
@@ -456,17 +383,6 @@ section:nth-child(4) { animation-delay: 0.4s; }
 @media (max-width: 768px) {
     body {
         padding: 1rem;
-    }
-    
-    nav {
-        padding: 1rem;
-        text-align: center;
-    }
-    
-    nav a {
-        display: block;
-        margin: 0.5rem 0;
-        margin-right: 0;
     }
     
     .header-section {

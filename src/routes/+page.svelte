@@ -10,14 +10,6 @@
   <title>Summer Zhou: Personal site and portfolio</title>
 </svelte:head>
 
-<nav>
-  <a class="current" href=".">Home</a>
-  <a href="projects">Projects</a>
-  <a href="contact">Contact</a>
-  <a href="resume">Resume</a>
-  <a href="https://github.com/SummerZ27" target="_blank" rel="noopener noreferrer">GitHub</a>
-</nav>
-
 <main>
   <div class="header-section">
     <h1>Summer Zhou</h1>
