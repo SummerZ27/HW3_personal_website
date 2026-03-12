@@ -60,6 +60,22 @@
       <article>
         <div class="resume-item-header">
           <div>
+            <h3>Point72 Cubist Systematic</h3>
+            <p class="location">New York, NY</p>
+          </div>
+          <div class="dates">
+            <time datetime="2025-12">Dec 2025</time> -- <time datetime="2026-01">Jan 2026</time>
+          </div>
+        </div>
+        <p class="position">Quantitative Research Intern</p>
+        <ul>
+          <li>Worked on China futures index research, developing and analyzing systematic trading strategies.</li>
+        </ul>
+      </article>
+
+      <article>
+        <div class="resume-item-header">
+          <div>
             <h3>Biostate AI Inc.</h3>
             <p class="location">Palo Alto, CA/Remote</p>
           </div>

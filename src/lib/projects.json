@@ -1,22 +1,65 @@
 [
   {
-    "title": "Dramaverse (Agentic AI Short-Drama Platform)",
-    "image": "/images/dramaverse.png",
-    "description": "Built an end-to-end agentic workflow for AI-native short-drama creation, integrating multiple specialized agents (scriptwriting, art direction, casting, keyframe generation, video synthesis, voice, and sound design) into a coherent production pipeline. Developed LoRA-based character consistency training (60+ curated images per character) to preserve identity across scenes, and experimented with ControlNet, depth conditioning, and high-resolution generation workflows on GPU clusters (RunPod). Focused on solving core challenges in AI video generation — consistent faces, cinematic camera motion, lighting realism, and natural lip-sync — aiming to move beyond \"AI-slop\" toward scalable, studio-quality storytelling."
+    "title": "English–Latin & English–Greek Translator",
+    "year": 2021,
+    "image": "/images/project1.jpg",
+    "description": "Built an LSTM-based sequence-to-sequence neural machine translation system capable of translating English to Latin and English to Ancient Greek, trained on parallel corpora of classical texts.",
+    "story": "In high school, I was obsessed with classical languages and frustrated that no good translation tools existed for Latin or Ancient Greek. So I built my own. Training LSTMs on parallel corpora of classical texts taught me the fundamentals of sequence-to-sequence modeling, attention mechanisms, and the pain of vanishing gradients. It was my first real encounter with deep learning — messy, humbling, and absolutely thrilling."
   },
   {
-    "title": "Toki (Manufacturing Scheduling & ERP Layer)",
-    "image": "",
-    "description": "Designed and implemented a dynamic production-line scheduling system for a mid-sized automotive glass manufacturing factory, modeling machine-specific constraints (tempering lines, lamination lines, frame lines) and urgent-order prioritization logic. Built a pipeline scheduler that integrates multi-department inputs and dynamically updates feasible production sequences under operational constraints. Focused on real-world systems integration challenges — aligning heterogeneous data sources, designing Excel-compatible uploads for factory workers, and constructing a modular SaaS layer that can evolve toward a vertically-tailored ERP platform for manufacturing optimization."
+    "title": "Products of Values of Polynomials in Finite Fields",
+    "year": 2022,
+    "image": "/images/project2.jpeg",
+    "description": "Investigated products of values of polynomials in finite fields at the Research Science Institute, applying combinatorial and algebraic techniques to derive new theorems in number theory.",
+    "story": "The summer at RSI was when I learned what real research felt like. Working in MIT's math department on finite field combinatorics, I spent weeks staring at polynomials and feeling completely lost. Then one afternoon, a pattern clicked. I derived a new theorem by combining algebraic and combinatorial arguments in a way nobody had tried before. That moment — from confusion to clarity — taught me that discomfort is where discovery lives."
+  },
+  {
+    "title": "Super-Resolution Model Optimization (Tencent)",
+    "year": 2023,
+    "image": "/images/project3.jpeg",
+    "description": "Optimized ML-based super-resolution models (ECBSR, ESRGAN) to enhance graphics quality in Tencent gaming and streaming products, improving visual quality metrics while reducing inference time.",
+    "story": "At Tencent, I learned that research means nothing if it can't ship. I was tasked with making super-resolution models faster without sacrificing image quality for gaming and streaming products. Balancing PSNR scores against inference latency on real hardware forced me to think about engineering trade-offs I'd never considered in a classroom. It was my first taste of production ML, and it changed how I think about the gap between a paper and a product."
+  },
+  {
+    "title": "Interactive Spyfall Game with AI",
+    "year": 2024,
+    "image": "/images/project4.jpg",
+    "description": "Developed a full-stack interactive web application for the social deduction game Spyfall, featuring AI-powered opponents that can ask and answer questions using natural language understanding.",
+    "story": "Freshman year at MIT, I wanted to build something purely fun. Spyfall — the social deduction party game — seemed perfect. I built a web app where you could play against AI opponents that actually asked clever questions and gave suspicious (but not too suspicious) answers. Integrating NLP into a real-time game taught me about prompt engineering, websockets, and the art of making AI feel human. Friends loved it. The AI was surprisingly good at lying."
+  },
+  {
+    "title": "Time Series Forecasting via Modified Transformer Attention",
+    "year": 2024,
+    "image": "/images/projec5.png",
+    "description": "Conducted research on hierarchical revenue forecasting for a medical device company, replacing standard Transformer attention with a modified attention-on-attention mechanism to better capture multi-level temporal dependencies.",
+    "story": "At the MIT-IBM Watson AI Lab, I wrestled with a problem that sounds simple but isn't: forecasting sales at multiple levels of a product hierarchy simultaneously. Standard Transformers didn't respect the constraint that child forecasts should sum to parent totals. I modified the attention mechanism and designed custom hierarchical loss functions. The result was a model that was not only more accurate but structurally coherent — a lesson that constraints aren't limitations, they're design principles."
   },
   {
     "title": "Gene Information Web Application",
-    "image": "",
-    "description": "Developed a full-stack bioinformatics web application that retrieves and aggregates gene-related data from Ensembl and MyGene APIs, including canonical mRNA/CDS sequences, GC content, and external resource links. Implemented batch query processing to significantly reduce API latency and structured logic to extract a unique, biologically relevant CDS per gene symbol among multiple transcript variants. Redesigned the UI with a structured grid layout and custom dark theme, integrating dynamic CSV-based external resources (NCBI, Google Scholar, Ensembl) to create a cohesive, research-oriented gene exploration interface."
+    "year": 2025,
+    "image": "/images/project6.png",
+    "description": "Developed a full-stack bioinformatics web portal for rapid gene information lookup, aggregating data from Ensembl and MyGene APIs with batch processing and a research-oriented UI.",
+    "story": "At Biostate AI, I built a gene lookup portal that researchers actually wanted to use. The challenge was stitching together data from multiple bioinformatics APIs (Ensembl, MyGene) that each had their own quirks and rate limits. Batch query processing cut latency dramatically. But the real lesson was in UX — scientists don't want flashy dashboards, they want fast, reliable answers. I redesigned the interface three times before it clicked."
   },
   {
-    "title": "Time Series Forecasting via Modified Transformer Attention Mechanism",
-    "image": "",
-    "description": "Conducted research on hierarchical revenue forecasting for a medical device company, replacing standard Transformer attention with a modified attention-on-attention mechanism to better capture multi-level temporal dependencies and cross-series coherence. Experimented with linear models, LSTMs, and baseline Transformers before introducing architectural changes that reweighted temporal features and enforced hierarchical consistency through customized loss functions (MSE, weighted aggregation loss). Evaluated performance across granular revenue levels, focusing on improving long-horizon forecast stability and ratio alignment across product hierarchies."
+    "title": "Toki (Manufacturing Scheduling & ERP Layer)",
+    "year": 2025,
+    "image": "/images/project7.png",
+    "description": "Designed a dynamic production-line scheduling system for automotive glass manufacturing, modeling machine constraints and urgent-order prioritization with a modular SaaS architecture.",
+    "story": "Toki taught me that the hardest engineering problems aren't algorithmic — they're human. Building a scheduling system for a real factory meant understanding that operators communicate through Excel, that 'urgent' means different things to different departments, and that the best algorithm is useless if workers won't trust it. I learned to design systems that meet people where they are, not where I wish they were."
+  },
+  {
+    "title": "Dramaverse (Agentic AI Short-Drama Platform)",
+    "year": 2025,
+    "image": "/images/project8.png",
+    "description": "Built an end-to-end agentic workflow for AI-native short-drama creation, integrating specialized agents for scriptwriting, art direction, video synthesis, voice, and sound design into a coherent pipeline.",
+    "story": "Dramaverse was my most ambitious project — an entire AI film production pipeline. Each agent (scriptwriter, art director, casting, video synthesis, sound design) had to communicate and build on each other's outputs. The hardest problem? Character consistency across scenes. I trained LoRA models on 60+ curated images per character and experimented with ControlNet and depth conditioning. The result isn't perfect, but it proved that AI-native storytelling is possible beyond 'AI slop.' That's the future I want to build."
+  },
+  {
+    "title": "Personal Portfolio Website",
+    "year": 2026,
+    "image": "/images/project9.png",
+    "description": "Designed and developed this personal portfolio website using SvelteKit, featuring dark/light theming, scrollytelling project narratives, GitHub API integration, and responsive design.",
+    "story": "Meta, I know — but building this website was its own journey. Learning SvelteKit, reactive stores, layout components, and scrollytelling forced me to think about narrative and design in ways I never had before. Every section of this site represents a deliberate choice: what to show, what to hide, and how to tell the story of who I am as an engineer. If you've scrolled this far, I hope the story made sense."
   }
 ]
