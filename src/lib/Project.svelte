@@ -4,7 +4,7 @@
 </script>
 
 <section>
-  <h2>{data.title}</h2>
+  <h2>{data.title} {#if data.year}<span class="year">{data.year}</span>{/if}</h2>
   {#if data.image}
     <div class="project-content">
       <img src="{base}{data.image}" alt="{data.title}">
@@ -60,6 +60,18 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  h2 .year {
+    font-size: 0.5em;
+    font-weight: 600;
+    color: var(--accent-color);
+    -webkit-text-fill-color: var(--accent-color);
+    background: rgba(236, 72, 153, 0.1);
+    padding: 0.15em 0.5em;
+    border-radius: 999px;
+    vertical-align: middle;
+    margin-left: 0.3em;
   }
 
   .project-content {
