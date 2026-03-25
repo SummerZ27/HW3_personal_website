@@ -10,6 +10,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config --global user.email "summerzhou@Summers-MacBook-Pro-2.local"
+          git config --global user.name "Summer Zhou"
 
       - name: Install Node.js
         uses: actions/setup-node@v4

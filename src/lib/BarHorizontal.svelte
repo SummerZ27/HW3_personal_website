@@ -2,10 +2,11 @@
   import * as d3 from 'd3';
 
   export let data = [];
+  export let title = 'Lines of Code by Language';
 
   let width = 500;
-  let height = 300;
-  let margin = { top: 40, right: 40, bottom: 80, left: 80 };
+  let height = 200;
+  let margin = { top: 30, right: 100, bottom: 50, left: 80 };
   let innerWidth = width - margin.left - margin.right;
   let innerHeight = height - margin.top - margin.bottom;
 
@@ -26,7 +27,11 @@
   $: maxBar = data.length > 0 ? d3.greatest(data, d => d.value) : null;
 
   $: if (xAxisEl && yAxisEl) {
-    d3.select(xAxisEl).call(d3.axisBottom(xScale).ticks(5));
+    d3.select(xAxisEl).call(
+      d3.axisBottom(xScale)
+        .ticks(Math.min(d3.max(data, d => d.value) || 1, 10))
+        .tickFormat(d => Number.isInteger(d) ? d : '')
+    );
     d3.select(yAxisEl).call(d3.axisLeft(yScale));
   }
 </script>
@@ -39,7 +44,7 @@
         y={-margin.top / 2}
         text-anchor="middle"
         class="chart-title">
-        Lines of Code by Language
+        {title}
       </text>
 
       {#each data as d}
@@ -52,7 +57,7 @@
         />
       {/each}
 
-      {#if maxBar}
+      {#if maxBar && maxBar.value > 0}
         <rect
           x={0}
           y={yScale(maxBar.label)}
@@ -62,26 +67,19 @@
           stroke="currentColor"
           stroke-width="2"
         />
-        <line
-          x1={xScale(maxBar.value)}
-          y1={yScale(maxBar.label) + yScale.bandwidth()}
-          x2={xScale(maxBar.value)}
-          y2={yScale(maxBar.label) + yScale.bandwidth() + 15}
-          stroke="currentColor"
-          stroke-width="1"
-        />
         <text
-          x={xScale(maxBar.value)}
-          y={yScale(maxBar.label) + yScale.bandwidth() + 27}
-          text-anchor="middle"
+          x={xScale(maxBar.value) + 5}
+          y={yScale(maxBar.label) + yScale.bandwidth() / 2}
+          text-anchor="start"
+          dominant-baseline="middle"
           class="annotation">
-          Most lines: {maxBar.label} ({maxBar.value})
+          {maxBar.label}: {maxBar.value}
         </text>
       {/if}
 
       <text
         x={innerWidth / 2}
-        y={innerHeight + margin.bottom - 10}
+        y={innerHeight + margin.bottom - 8}
         text-anchor="middle"
         class="axis-label">
         Lines of Code
@@ -123,24 +121,24 @@
 
   .container {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: flex-start;
     overflow: visible;
   }
 
   .chart-title {
-    font-size: 1em;
+    font-size: 0.85em;
     font-weight: bold;
     fill: currentColor;
   }
 
   .axis-label {
-    font-size: 0.8em;
+    font-size: 0.7em;
     fill: currentColor;
   }
 
   .annotation {
-    font-size: 0.7em;
+    font-size: 0.6em;
     fill: currentColor;
     font-style: italic;
   }
@@ -152,7 +150,7 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
 
   .legend li {
@@ -160,7 +158,7 @@
     align-items: center;
     gap: 0.4rem;
     padding: 0;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
   }
 
@@ -169,9 +167,9 @@
   }
 
   .swatch {
-    width: 14px;
-    height: 14px;
-    min-width: 14px;
+    width: 12px;
+    height: 12px;
+    min-width: 12px;
     border-radius: 3px;
     background-color: var(--color);
   }
