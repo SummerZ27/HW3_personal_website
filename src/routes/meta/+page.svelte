@@ -230,12 +230,6 @@
     </g>
   </svg>
 
-  <section class="chart-section">
-    {#if linesByDate.length > 0}
-      <LineChart data={linesByDate} />
-    {/if}
-  </section>
-
   <dl class="info tooltip"
       hidden={hoveredIndex === -1}
       bind:this={commitTooltip}
@@ -258,6 +252,12 @@
       <BarHorizontal data={barData} title={barTitle} />
     {:else}
       <p>Loading data...</p>
+    {/if}
+  </section>
+
+  <section class="chart-section">
+    {#if linesByDate.length > 0}
+      <LineChart data={linesByDate} />
     {/if}
   </section>
 </main>
