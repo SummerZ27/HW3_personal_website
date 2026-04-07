@@ -3,6 +3,7 @@
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
   import BarHorizontal from '$lib/BarHorizontal.svelte';
+  import LineChart from '$lib/LineChart.svelte';
   import {
     computePosition,
     autoPlacement,
@@ -12,6 +13,24 @@
   let locData = [];
   let commits = [];
   let clickedCommits = [];
+  let svg;
+  let brushSelection = null;
+
+  function brushed (evt) {
+    brushSelection = evt.selection;
+  }
+
+  function isCommitBrushed (commit) {
+    if (!brushSelection) return false;
+    let min = { x: brushSelection[0][0], y: brushSelection[0][1] };
+    let max = { x: brushSelection[1][0], y: brushSelection[1][1] };
+    let x = xScale(commit.datetime);
+    let y = yScale(commit.hourFrac);
+    return x >= min.x && x <= max.x && y >= min.y && y <= max.y;
+  }
+
+  $: brushedCommits = brushSelection ? commits.filter(isCommitBrushed) : [];
+  $: selectedCommits = Array.from(new Set([...clickedCommits, ...brushedCommits]));
 
   let width = 1000, height = 600;
   let margin = { top: 10, right: 10, bottom: 30, left: 50 };
@@ -64,14 +83,50 @@
     }
   }
 
+  $: {
+    if (svg) {
+      d3.select(svg).call(
+        d3.brush()
+          .extent([[usableArea.left, usableArea.top], [usableArea.right, usableArea.bottom]])
+          .on('start brush end', brushed)
+      );
+      d3.select(svg).selectAll('.dots, .overlay ~ *').raise();
+    }
+  }
+
+  let linesByDate = [];
+
+  $: {
+    // 1. Get the count for each date in the data
+    const rolled = d3.rollups(
+      locData,
+      v => v.length,
+      d => d3.timeDay.floor(d.datetime)
+    ).map(([date, count]) => ({ date, count }));
+
+    // 2. Get an array of all days covered by the data
+    if (rolled.length > 0) {
+      const [minDate, maxDate] = d3.extent(rolled, d => d.date);
+      const allDays = d3.timeDays(minDate, d3.timeDay.offset(maxDate, 1));
+
+      // 3. Build linesByDate by filling all undefined dates with 0 counts
+      linesByDate = allDays.map(date => ({
+        date,
+        count: rolled.find(d => d.date.getTime() === date.getTime())?.count ?? 0
+      }));
+    } else {
+      linesByDate = [];
+    }
+  }
+
   $: fileLengths = d3.rollups(locData, v => d3.max(v, r => r.line), d => d.file);
   $: averageFileLength = d3.mean(fileLengths, d => d[1]);
   $: workByPeriod = d3.rollups(locData, v => v.length, d => d.datetime?.toLocaleString('en', { dayPeriod: 'short' }));
   $: maxPeriod = d3.greatest(workByPeriod, d => d[1])?.[0];
 
   // Step 5: Filtered bar data
-  $: selectedLines = clickedCommits.length > 0
-    ? clickedCommits.flatMap(d => d.lines)
+  $: selectedLines = selectedCommits.length > 0
+    ? selectedCommits.flatMap(d => d.lines)
     : locData;
   $: selectedCounts = d3.rollup(selectedLines, v => v.length, d => d.type);
   $: allTypes = Array.from(new Set(locData.map(d => d.type)));
@@ -79,8 +134,8 @@
     label: String(type),
     value: selectedCounts.get(type) || 0
   }));
-  $: barTitle = clickedCommits.length > 0
-    ? `Language breakdown for ${clickedCommits.length} selected commit${clickedCommits.length > 1 ? 's' : ''}`
+  $: barTitle = selectedCommits.length > 0
+    ? `Language breakdown for ${selectedCommits.length} selected commit${selectedCommits.length > 1 ? 's' : ''}`
     : 'Language breakdown for entire website';
 
   onMount(async () => {
@@ -153,19 +208,20 @@
 
   <h2>Commits by time of day</h2>
 
-  <svg viewBox="0 0 {width} {height}">
+  <svg viewBox="0 0 {width} {height}" bind:this={svg}>
     <g class="gridlines" transform="translate({usableArea.left}, 0)" bind:this={yAxisGridlines} />
     <g transform="translate(0, {usableArea.bottom})" bind:this={xAxis} />
     <g transform="translate({usableArea.left}, 0)" bind:this={yAxis} />
     <g class="dots">
       {#each commits as commit, index}
+        <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
         <circle
           cx={xScale(commit.datetime)}
           cy={yScale(commit.hourFrac)}
           r={rScale(commit.totalLines)}
           fill="steelblue"
           fill-opacity="0.6"
-          class:selected={clickedCommits.includes(commit)}
+          class:selected={selectedCommits.includes(commit)}
           on:mouseenter={evt => dotInteraction(index, evt)}
           on:mouseleave={evt => dotInteraction(index, evt)}
           on:click={evt => dotInteraction(index, evt)}
@@ -173,6 +229,12 @@
       {/each}
     </g>
   </svg>
+
+  <section class="chart-section">
+    {#if linesByDate.length > 0}
+      <LineChart data={linesByDate} />
+    {/if}
+  </section>
 
   <dl class="info tooltip"
       hidden={hoveredIndex === -1}
@@ -222,6 +284,20 @@
 
   .selected {
     fill: #f59e0b;
+  }
+
+  @keyframes marching-ants {
+    to {
+      stroke-dashoffset: -8;
+    }
+  }
+
+  svg :global(.selection) {
+    fill-opacity: 10%;
+    stroke: black;
+    stroke-opacity: 70%;
+    stroke-dasharray: 5 3;
+    animation: marching-ants 2s linear infinite;
   }
 
   .stats {

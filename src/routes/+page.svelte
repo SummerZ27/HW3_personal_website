@@ -28,7 +28,7 @@
 <main>
   <div class="header-section">
     <h1>Summer Zhou</h1>
-    <img src="{base}/images/profile.png" alt="Portrait photo of Summer Zhou">
+    <img src="{base}/images/profile.png" alt="Portrait of Summer Zhou">
   </div>
 
   <p>Welcome to my personal website! I'm a researcher and engineer working at the intersection of AI/ML and systems engineering. My work spans agentic AI workflows, production systems optimization, bioinformatics applications, and advanced machine learning research.</p>
