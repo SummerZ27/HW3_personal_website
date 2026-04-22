@@ -165,22 +165,35 @@
   });
 
   async function dotInteraction(index, evt) {
-    let hoveredDot = evt.target;
-    if (evt.type === 'mouseenter') {
+    const t = evt.type;
+    const el = evt.currentTarget ?? evt.target;
+
+    if (t === 'mouseenter' || t === 'focus') {
       hoveredIndex = index;
-      tooltipPosition = await computePosition(hoveredDot, commitTooltip, {
+      tooltipPosition = await computePosition(el, commitTooltip, {
         strategy: 'fixed',
         middleware: [offset(5), autoPlacement()],
       });
-    } else if (evt.type === 'mouseleave') {
+    } else if (t === 'mouseleave' || t === 'blur') {
       hoveredIndex = -1;
-    } else if (evt.type === 'click') {
+    } else if (t === 'click') {
       let commit = commits[index];
       if (!clickedCommits.includes(commit)) {
         clickedCommits = [...clickedCommits, commit];
       } else {
         clickedCommits = clickedCommits.filter(c => c !== commit);
       }
+    }
+  }
+
+  function dotKeydown(index, evt) {
+    if (evt.key === ' ') evt.preventDefault();
+    if (evt.key === 'Enter' || evt.key === ' ') {
+      dotInteraction(index, {
+        type: 'click',
+        currentTarget: evt.currentTarget,
+        target: evt.target
+      });
     }
   }
 </script>
@@ -214,7 +227,6 @@
     <g transform="translate({usableArea.left}, 0)" bind:this={yAxis} />
     <g class="dots">
       {#each commits as commit, index}
-        <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
         <circle
           cx={xScale(commit.datetime)}
           cy={yScale(commit.hourFrac)}
@@ -222,20 +234,31 @@
           fill="steelblue"
           fill-opacity="0.6"
           class:selected={selectedCommits.includes(commit)}
+          tabindex="0"
+          role="button"
+          aria-haspopup="true"
+          aria-describedby="commit-tooltip"
+          aria-label={`Commit ${commit.id.slice(0, 7)}, ${commit.totalLines} lines edited. Toggle selection.`}
           on:mouseenter={evt => dotInteraction(index, evt)}
           on:mouseleave={evt => dotInteraction(index, evt)}
+          on:focus={evt => dotInteraction(index, evt)}
+          on:blur={evt => dotInteraction(index, evt)}
           on:click={evt => dotInteraction(index, evt)}
+          on:keydown={evt => dotKeydown(index, evt)}
         />
       {/each}
     </g>
   </svg>
 
-  <dl class="info tooltip"
+  <dl
+      id="commit-tooltip"
+      role="tooltip"
+      class="info tooltip"
       hidden={hoveredIndex === -1}
       bind:this={commitTooltip}
       style="top: {tooltipPosition.y}px; left: {tooltipPosition.x}px">
     <dt>Commit</dt>
-    <dd><a href={hoveredCommit.url} target="_blank">{hoveredCommit.id}</a></dd>
+    <dd><a href={hoveredCommit.url} target="_blank" rel="noopener noreferrer">{hoveredCommit.id}</a></dd>
     <dt>Date</dt>
     <dd>{hoveredCommit.datetime?.toLocaleString('en', { dateStyle: 'full' })}</dd>
     <dt>Time</dt>
@@ -378,6 +401,10 @@
     position: fixed;
     z-index: 200;
     pointer-events: none;
+  }
+
+  .tooltip:not([hidden]) {
+    pointer-events: auto;
   }
 
   .chart-section {
